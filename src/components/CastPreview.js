@@ -15,12 +15,15 @@ class CastPreview extends Component {
             const { person, character } = name;
             return (
               <li className="castMember" key={i}>
-                <Link to={`/name/${person.id}`}>
+                <Link to={`/tvshowinfo/name/${person.id}`}>
                   <div className="castPerson">
                     {person.image !== null ? (
-                      <img className="castImage" src={person.image.medium} />
+                      <img
+                        className="castImage imgSmall"
+                        src={person.image.medium}
+                      />
                     ) : (
-                      <img src={noImage} />
+                      <img src={noImage} className="imgSmall" />
                     )}
                     <p className="castName">{person.name}</p>
                   </div>
@@ -32,7 +35,7 @@ class CastPreview extends Component {
             );
           })}
         </ul>
-        <Link to={`/show/${this.props.id}/cast&crew`}>
+        <Link to={`/tvshowinfo/show/${this.props.id}/cast&crew`}>
           <button className="btn darkBg">Full Cast & Crew</button>
         </Link>
       </div>

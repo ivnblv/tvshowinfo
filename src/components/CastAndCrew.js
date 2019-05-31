@@ -9,7 +9,7 @@ import noImage from "../img/noImage.png";
 class CastAndCrew extends Component {
   componentDidMount() {
     this.props.getCastCrew(
-      `http://api.tvmaze.com/shows/${
+      `https://api.tvmaze.com/shows/${
         this.props.match.params.id
       }?embed[]=crew&embed[]=cast`
     );
@@ -24,12 +24,12 @@ class CastAndCrew extends Component {
           <div className="container castCrew secondaryBg">
             <div className="showInfo">
               <h2 className="castCrewTitle">
-                <Link to={`/show/${id}`}>{name}</Link>
+                <Link to={`/tvshowinfo/show/${id}`}>{name}</Link>
               </h2>
               {image !== null ? (
-                <img src={image.medium} className="castCrewPoster" />
+                <img src={image.medium} className="castCrewPoster posterImg" />
               ) : (
-                <img src={noImage} />
+                <img src={noImage} className="castCrewPoster posterImg" />
               )}
             </div>
             <div className="crew">
@@ -41,26 +41,26 @@ class CastAndCrew extends Component {
               <h3>Cast:</h3>
               <ul className="nthLi">
                 {_embedded.cast.map(castMember => {
-                  const {person,character} = castMember;    
-                  
-                  
-                  return(
-                  <li className="castLi">
-                    <Link to={`/name/${person.id}/`}>
-                      <div className="castPerson">
-                        {person.image !== null ? (
-                          <img src={person.image.medium} />
-                        ) : (
-                          <img src={noImage} />
-                        )}
-                        <p>{person.name}</p>
+                  const { person, character } = castMember;
+
+                  return (
+                    <li className="castLi">
+                      <Link to={`/tvshowinfo/name/${person.id}/`}>
+                        <div className="castPerson">
+                          {person.image !== null ? (
+                            <img src={person.image.medium} />
+                          ) : (
+                            <img src={noImage} />
+                          )}
+                          <p>{person.name}</p>
+                        </div>
+                      </Link>
+                      <div className="castCharacter">
+                        <p>{character.name}</p>
                       </div>
-                    </Link>
-                    <div className="castCharacter">
-                      <p>{character.name}</p>
-                    </div>
-                  </li>
-                )})}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

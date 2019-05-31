@@ -1,13 +1,13 @@
 .lightBg {
-  background-color: rgba(123, 126, 142, 0.09);
+  background-color: #ededed;
   color: black; }
 
 .darkBg {
-  background-color: rgba(123, 126, 142, 0.3);
+  background-color: #fafafb;
   color: black; }
 
 .secondaryBg {
-  background-color: #ededed;
+  background-color: #e0e1e2;
   color: black; }
 
 .highlight {
@@ -18,7 +18,7 @@
   width: 60%;
   margin: auto;
   padding: 1rem 2rem;
-  margin: 5% auto; }
+  margin-top: 8rem; }
 
 .btn {
   margin: auto;
@@ -29,7 +29,7 @@
   background-color: #3d4652;
   color: white; }
   .btn:hover {
-    background-color: rgba(61, 70, 82, 0.85); }
+    background-color: #222933; }
 
 .loader {
   position: absolute;
@@ -53,8 +53,26 @@
   width: "100"; }
 
 .nthLi li:nth-child(odd) {
-  background-color: rgba(123, 126, 142, 0.09);
+  background-color: #ededed;
   color: black; }
+
+@media (max-width: 1300px) {
+  .container {
+    width: 80%; } }
+
+@media (max-width: 900px) {
+  body {
+    font-size: 14px; }
+  .container {
+    width: 100%; }
+  .posterImg {
+    height: 200px; }
+  .imgSmall {
+    height: 60px; } }
+
+@media (max-width: 766px) {
+  .container {
+    padding: 1rem; } }
 
 .show {
   display: grid;
@@ -191,7 +209,6 @@
     margin: 0.25rem auto; }
     .showPreview .previewImage img {
       display: block;
-      width: 70%;
       margin: auto; } }
 
 header {
@@ -258,9 +275,12 @@ header {
   padding: 1rem 0; }
 
 .castImage {
-  width: 100%;
   max-width: 70px;
   margin-right: 1rem; }
+
+@media (max-width: 900px) {
+  .castPreview {
+    padding: 0; } }
 
 .seasons {
   display: flex;
@@ -377,7 +397,10 @@ header {
   .crew,
   .cast {
     width: 90%;
-    margin: auto; } }
+    margin: auto; }
+    .crew .castPerson img,
+    .cast .castPerson img {
+      height: 60px; } }
 
 .person {
   display: flex;
@@ -452,11 +475,13 @@ header {
   .searchQuery {
     margin-left: 5%; } }
 
-.searchResults button {
-  width: 100%; }
+.searchResults {
+  z-index: 10; }
+  .searchResults button {
+    width: 100%; }
 
 #results {
-  display: none;
+  visibility: hidden;
   box-shadow: 3px 3px 5px 0px #3d4652; }
 
 .liveSearchItem {
@@ -466,7 +491,7 @@ header {
   cursor: pointer;
   padding: 0.25rem; }
   .liveSearchItem:hover {
-    background-color: rgba(123, 126, 142, 0.09); }
+    background-color: #ededed; }
   .liveSearchItem .liveSearchImg {
     height: 30px; }
   .liveSearchItem p {
@@ -550,7 +575,7 @@ html {
 
 body {
   line-height: 1.5;
-  background-color: rgba(123, 126, 142, 0.3);
+  background-color: #fafafb;
   color: whitesmoke; }
 
 .highlight {
@@ -573,18 +598,3 @@ button {
   font-size: 1.3rem; }
   .rating i {
     color: gold; }
-
-@media (max-width: 1300px) {
-  .container {
-    width: 80%; } }
-
-@media (max-width: 900px) {
-  body {
-    font-size: 14px; }
-  .container {
-    width: 100%;
-    margin-top: 20%; } }
-
-@media (max-width: 766px) {
-  .container {
-    padding: 1rem; } }

@@ -100,8 +100,8 @@ select {
   width: 100%;
   border: 1px solid $highlight;
   grid-area: results;
-  // display: none;
-  ul {
+  z-index: 
+  // display: none; ul {
     width: 100%;
   }
 
@@ -134,7 +134,8 @@ select {
 
 @media (max-width: 900px) {
   .searchbar {
-    display: none;
+    // display: none;
+    visibility: hidden;
   }
   .searchbarMobile {
     display: flex;

@@ -39,7 +39,7 @@ class SearchResult extends Component {
                 <div className="searchContainer">
                   <h4>Shows:</h4>
                   {this.props.shows.map(show => (
-                    <Link to={`/show/${show.show.id}`}>
+                    <Link to={`/tvshowinfo/show/${show.show.id}`}>
                       <div className="searchResultItem darkBg">
                         {show.show.image !== null ? (
                           <img src={show.show.image.medium} />
@@ -62,7 +62,7 @@ class SearchResult extends Component {
                 <div className="searchContainer">
                   <h4>Names:</h4>
                   {this.props.names.map(name => (
-                    <Link to={`/name/${name.person.id}`}>
+                    <Link to={`/tvshowinfo/name/${name.person.id}`}>
                       <div className="searchResultItem darkBg">
                         {name.person.image == null ? (
                           <img src={noImage} />
@@ -96,12 +96,12 @@ class SearchResult extends Component {
   fetchData = () => {
     const { type, query } = this.props.match.params;
     if (type === "all") {
-      this.props.searchShows(`http://api.tvmaze.com/search/shows?q=${query}`);
-      this.props.searchNames(`http://api.tvmaze.com/search/people?q=${query}`);
+      this.props.searchShows(`https://api.tvmaze.com/search/shows?q=${query}`);
+      this.props.searchNames(`https://api.tvmaze.com/search/people?q=${query}`);
     } else if (type === "shows") {
-      this.props.searchShows(`http://api.tvmaze.com/search/shows?q=${query}`);
+      this.props.searchShows(`https://api.tvmaze.com/search/shows?q=${query}`);
     } else if (type === "names") {
-      this.props.searchNames(`http://api.tvmaze.com/search/people?q=${query}`);
+      this.props.searchNames(`https://api.tvmaze.com/search/people?q=${query}`);
     } else return null;
   };
 }

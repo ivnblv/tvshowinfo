@@ -15,9 +15,9 @@ class ShowPreview extends Component {
       summary
     } = this.props.scheduleItem.show;
     return (
-      <div className="showPreview secondaryBg">
+      <div className="showPreview lightBg">
         <div className="showPreviewMainInfo">
-          <Link to={`/show/${id}`}>
+          <Link to={`/tvshowinfo/show/${id}`}>
             <h1 className="showPreviewTitle">{name}</h1>
           </Link>
           <p className="rating">
@@ -29,7 +29,7 @@ class ShowPreview extends Component {
           <div className="previewImage">
             {image !== null ? (
               <img
-                className="showPreviewPoster"
+                className="showPreviewPoster posterImg"
                 src={image.medium}
                 alt="poster"
               />

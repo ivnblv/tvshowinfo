@@ -12,7 +12,7 @@ class Schedule extends Component {
   };
   componentDidMount() {
     // this.props.getSchedule();
-    this.props.getSchedule("http://api.tvmaze.com/schedule");
+    this.props.getSchedule("https://api.tvmaze.com/schedule");
   }
   presentGenres = [];
   render() {
@@ -20,7 +20,7 @@ class Schedule extends Component {
     return (
       <React.Fragment>
         {!this.props.loading && Object.keys(this.props.schedule).length > 0 ? (
-          <div className="container lightBg">
+          <div className="container secondaryBg">
             <div className="schedule">
               <h2 style={{ color: "black" }}>Airing Today:</h2>
               {schedule

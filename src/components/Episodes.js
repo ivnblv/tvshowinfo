@@ -8,14 +8,14 @@ class Episodes extends Component {
   componentDidMount() {
     // this.props.getEpisodes(`http://api.tvmaze.com/shows/${this.props.showId}/episodes`);
     this.props.getEpisodes(
-      `http://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
+      `https://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
     );
     console.log("EPISODES MOUNT");
   }
   componentDidUpdate(prevProps) {
     if (this.props.seasonid !== prevProps.seasonid) {
       this.props.getEpisodes(
-        `http://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
+        `https://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
       );
       console.log("new props");
     }

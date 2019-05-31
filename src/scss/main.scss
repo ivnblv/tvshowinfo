@@ -50,22 +50,3 @@ button {
     color: gold;
   }
 }
-@media (max-width: 1300px) {
-  .container {
-    width: 80%;
-  }
-}
-@media (max-width: 900px) {
-  body {
-    font-size: 14px;
-  }
-  .container {
-    width: 100%;
-    margin-top: 20%;
-  }
-}
-@media (max-width: 766px) {
-  .container {
-    padding: 1rem;
-  }
-}

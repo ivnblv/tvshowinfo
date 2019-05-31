@@ -11,7 +11,7 @@ class Show extends Component {
   componentDidMount() {
     // this.props.getShow(this.props.match.params.id);
     this.props.getShow(
-      `http://api.tvmaze.com/shows/${
+      `https://api.tvmaze.com/shows/${
         this.props.match.params.id
       }?embed[]=seasons&embed[]=cast`
     );
@@ -51,9 +51,9 @@ class Show extends Component {
 
               <div className="poster">
                 {image !== null ? (
-                  <img src={image.medium} />
+                  <img src={image.medium} className="posterImg" />
                 ) : (
-                  <img src={noImage} />
+                  <img src={noImage} className="posterImg" />
                 )}
               </div>
 
@@ -91,7 +91,9 @@ class Show extends Component {
                 <ul>
                   {_embedded.seasons.map(season => (
                     <li key={season.id}>
-                      <Link to={`/show/${id}/seasons/${season.number}`}>
+                      <Link
+                        to={`/tvshowinfo/show/${id}/seasons/${season.number}`}
+                      >
                         {season.number}
                       </Link>
                     </li>

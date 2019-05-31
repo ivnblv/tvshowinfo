@@ -22,38 +22,32 @@ class Searchbar extends Component {
     lockResults: false
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    // console.log(this.props.history.location.pathname);
+    // console.log(nextProps);
+
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.resultDisplay("hidden");
+    }
+
     if (this.state.lastEntry === 2 && this.state.query.length > 0) {
       console.log("fetch here");
       const { type, query } = this.state;
 
-      // if (type === "shows") {
-      //   this.props.liveSearchShows(
-      //     `http://api.tvmaze.com/search/shows?q=${query}`
-      //   );
-      // } else if (type === "names") {
-      //   this.props.liveSearchNames(
-      //     `http://api.tvmaze.com/search/people?q=${query}`
-      //   );
-      // } else if (type === "all") {
-      //   this.props.liveSearchNames(
-      //     `http://api.tvmaze.com/search/people?q=${query}`
-      //   );
-      //   this.props.liveSearchShows(
-      //     `http://api.tvmaze.com/search/shows?q=${query}`
-      //   );
-      // }
-      // this.props.liveSearch(`http://api.tvmaze.com/search/shows?q=${query}`);
       if (type === "shows") {
         this.props.clearSearch([]);
-        this.props.liveSearch(`http://api.tvmaze.com/search/shows?q=${query}`);
+        this.props.liveSearch(`https://api.tvmaze.com/search/shows?q=${query}`);
       } else if (type === "names") {
         this.props.clearSearch([]);
-        this.props.liveSearch(`http://api.tvmaze.com/search/people?q=${query}`);
+        this.props.liveSearch(
+          `https://api.tvmaze.com/search/people?q=${query}`
+        );
       } else if (type === "all") {
         this.props.clearSearch([]);
-        this.props.liveSearch(`http://api.tvmaze.com/search/shows?q=${query}`);
-        this.props.liveSearch(`http://api.tvmaze.com/search/people?q=${query}`);
+        this.props.liveSearch(`https://api.tvmaze.com/search/shows?q=${query}`);
+        this.props.liveSearch(
+          `https://api.tvmaze.com/search/people?q=${query}`
+        );
       }
 
       this.setState({
@@ -78,8 +72,8 @@ class Searchbar extends Component {
             <form className="searchbarInput">
               <input
                 onChange={this.handleInput}
-                onFocus={() => this.resultDisplay("block")}
-                onBlur={() => this.resultDisplay("none")}
+                onFocus={() => this.resultDisplay("visible")}
+                onBlur={() => this.resultDisplay("hidden")}
                 value={this.state.query}
                 type="text"
                 placeholder="Search..."
@@ -102,8 +96,8 @@ class Searchbar extends Component {
 
             <form className="searchbarInput" id="searchbarMobileInput">
               <input
-                onFocus={() => this.resultDisplay("block")}
-                onBlur={() => this.resultDisplay("none")}
+                onFocus={() => this.resultDisplay("visible")}
+                onBlur={() => this.resultDisplay("hidden")}
                 onChange={this.handleInput}
                 value={this.state.query}
                 type="text"
@@ -117,7 +111,12 @@ class Searchbar extends Component {
               <button onClick={this.searchRedirect}>Search</button>
             </form>
           </div>
-          <div id="results" className="searchResults secondaryBg">
+          <div
+            id="results"
+            className="searchResults primaryBg"
+            // onMouseOut={() => this.lockResults(false)}
+            // onMouseEnter={() => this.lockResults(true)}
+          >
             {this.props.names.length > 0 || this.props.shows.length > 0 ? (
               <React.Fragment>
                 {/* {type === "shows"
@@ -136,8 +135,8 @@ class Searchbar extends Component {
                 <button
                   className="btn"
                   onClick={this.searchRedirect}
-                  onMouseEnter={() => this.lockResults(true)}
-                  onMouseOut={() => this.lockResults(false)}
+                  onMouseDown={() => this.lockResults(true)}
+                  onMouseUp={() => this.lockResults(false)}
                 >
                   All search results
                 </button>
@@ -164,7 +163,7 @@ class Searchbar extends Component {
     e.preventDefault();
     const { type, query } = this.state;
 
-    this.props.history.replace(`/search/${type}&${query}`);
+    this.props.history.replace(`/tvshowinfo/search/${type}&${query}`);
   };
   resultRender = arr => {
     return (
@@ -175,20 +174,19 @@ class Searchbar extends Component {
           .slice(0, this.state.displayAmount)
           .map(item => {
             const type = Object.keys(item)[1];
-            console.log(
-              `/${type === "person" ? "name" : "show"}/${item[type].id}`
-            );
 
             return (
               <li>
                 <Link
-                  to={`/${type === "person" ? "name" : "show"}/${
+                  onMouseDown={() => this.lockResults(true)}
+                  onMouseUp={() => this.lockResults(false)}
+                  to={`/tvshowinfo/${type === "person" ? "name" : "show"}/${
                     item[type].id
                   }`}
-                  onMouseEnter={() => this.lockResults(true)}
-                  onMouseOut={() => this.lockResults(false)}
+                  // onMouseEnter={() => this.lockResults(true)}
+                  // onMouseOut={() => this.lockResults(false)}
                 >
-                  <div className="liveSearchItem secondaryBg">
+                  <div className="liveSearchItem darkBg">
                     {item[type].image !== null ? (
                       <img
                         className="liveSearchImg"
@@ -225,10 +223,17 @@ class Searchbar extends Component {
     });
   };
 
-  resultDisplay = display => {
+  // resultDisplay = display => {
+  //   const { liveSearchNames, liveSearchShows } = this.props;
+  //   if (!this.state.lockResults) {
+  //     document.getElementById("results").style.display = display;
+  //   }
+  //   console.log("123");
+  // };
+  resultDisplay = visibility => {
     const { liveSearchNames, liveSearchShows } = this.props;
     if (!this.state.lockResults) {
-      document.getElementById("results").style.display = display;
+      document.getElementById("results").style.visibility = visibility;
     }
     console.log("123");
   };

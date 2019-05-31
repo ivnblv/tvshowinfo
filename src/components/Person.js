@@ -7,15 +7,15 @@ import { getPerson, getCastCredits, getCrewCredits } from "../routines";
 class Person extends Component {
   componentDidMount() {
     this.props.getPerson(
-      `http://api.tvmaze.com/people/${this.props.match.params.id}`
+      `https://api.tvmaze.com/people/${this.props.match.params.id}`
     );
     this.props.getCastCredits(
-      `http://api.tvmaze.com/people/${
+      `https://api.tvmaze.com/people/${
         this.props.match.params.id
       }/castcredits?embed=show`
     );
     this.props.getCrewCredits(
-      `http://api.tvmaze.com/people/${
+      `https://api.tvmaze.com/people/${
         this.props.match.params.id
       }/crewcredits?embed=show`
     );
@@ -35,7 +35,7 @@ class Person extends Component {
             <div className="person">
               <div className="personInfo">
                 {image !== null && image !== undefined ? (
-                  <img src={image.medium} />
+                  <img src={image.medium} className="posterImg" />
                 ) : null}
                 <p>Born: {birthday}</p>
                 {deathday ? <p>Died: {deathday}</p> : null}
@@ -100,7 +100,7 @@ class Person extends Component {
               return (
                 <li className="personRole">
                   <p>
-                    <Link to={`/show/${id}`}>
+                    <Link to={`/tvshowinfo/show/${id}`}>
                       {`${name}`}
                       {premiered !== null ? `(${premiered.slice(0, 4)})` : null}
                     </Link>

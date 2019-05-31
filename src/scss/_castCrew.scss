@@ -87,5 +87,10 @@
   .cast {
     width: 90%;
     margin: auto;
+    .castPerson {
+      img {
+        height: 60px;
+      }
+    }
   }
 }

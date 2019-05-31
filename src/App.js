@@ -22,18 +22,22 @@ class App extends Component {
             {/* <Schedule /> */}
             {/* <Show /> */}
             <Switch>
-              <Route exact path="/" component={Schedule} />
-              <Route exact path="/show/:id" component={Show} />
+              <Route exact path="/tvshowinfo" component={Schedule} />
+              <Route exact path="/tvshowinfo/show/:id" component={Show} />
               <Route
                 exact
-                path="/show/:id/seasons/:seasonNumber"
+                path="/tvshowinfo/show/:id/seasons/:seasonNumber"
                 component={Seasons}
               />
-              <Route exact path="/show/:id/cast&crew" component={CastAndCrew} />
-              <Route exact path="/name/:id" component={Person} />
               <Route
                 exact
-                path="/search/:type&:query"
+                path="/tvshowinfo/show/:id/cast&crew"
+                component={CastAndCrew}
+              />
+              <Route exact path="/tvshowinfo/name/:id" component={Person} />
+              <Route
+                exact
+                path="/tvshowinfo/search/:type&:query"
                 component={SearchResult}
               />
             </Switch>

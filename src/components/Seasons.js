@@ -10,7 +10,7 @@ import noImage from "../img/noImage.png";
 class Seasons extends Component {
   componentDidMount() {
     this.props.getSeasons(
-      `http://api.tvmaze.com/shows/${
+      `https://api.tvmaze.com/shows/${
         this.props.match.params.id
       }?embed[]=seasons`
     );
@@ -24,7 +24,7 @@ class Seasons extends Component {
         Object.keys(this.props.seasons).length > 0 ? (
           <div className="container seasons secondaryBg">
             <div className="seasonsShowInfo">
-              <Link to={`/show/${id}`}>
+              <Link to={`/tvshowinfo/show/${id}`}>
                 <h2>{name}</h2>
               </Link>
 

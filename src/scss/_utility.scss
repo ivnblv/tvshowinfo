@@ -14,7 +14,7 @@
   width: 60%;
   margin: auto;
   padding: 1rem 2rem;
-  margin: 5% auto;
+  margin-top: 8rem;
 }
 .btn {
   margin: auto;
@@ -24,7 +24,7 @@
   outline: none;
   @include bgColor($highlight);
   &:hover {
-    background-color: rgba(61, 70, 82, 0.85);
+    background-color: $darkColor;
   }
 }
 
@@ -60,5 +60,31 @@
     &:nth-child(odd) {
       @include bgColor($lightColor);
     }
+  }
+}
+
+@media (max-width: 1300px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (max-width: 900px) {
+  body {
+    font-size: 14px;
+  }
+  .container {
+    width: 100%;
+    // margin-top: 20%;
+  }
+  .posterImg {
+    height: 200px;
+  }
+  .imgSmall {
+    height: 60px;
+  }
+}
+@media (max-width: 766px) {
+  .container {
+    padding: 1rem;
   }
 }
