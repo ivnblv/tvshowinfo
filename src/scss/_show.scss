@@ -1,0 +1,127 @@
+.show {
+  display: grid;
+  grid-template-areas:
+    "showHeader showHeader"
+    "poster showInfo"
+    ". seasons"
+    ". summary"
+    "trailer trailer"
+    "cast cast";
+
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+}
+.showInfo {
+  grid-area: showInfo;
+  ul {
+    li {
+      margin-bottom: 0.1rem;
+    }
+  }
+}
+.showHeader {
+  grid-area: showHeader;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.poster {
+  grid-area: poster;
+}
+.trailer {
+  grid-area: trailer;
+  width: 60%;
+  margin: auto;
+  .videoWrapper {
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+
+    margin: auto;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: auto;
+      border: none;
+    }
+  }
+}
+.seasonList {
+  grid-area: seasons;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    li {
+      display: inline;
+      margin-left: 0.5rem;
+    }
+  }
+
+  // .seasons{
+  //     display: grid;
+  //     grid-template-columns: repeat(5,1fr);
+  //     grid-gap: .5rem;
+  // }
+}
+.summary {
+  grid-area: summary;
+  width: 80%;
+  // margin: 1rem 0;
+  p {
+    margin-top: 0.5rem;
+  }
+}
+.castPreview {
+  grid-area: cast;
+}
+
+@media (max-width: 900px) {
+  .show {
+    grid-template-areas: 
+    // "showHeader showHeader"
+    // "poster showInfo"
+    // ". summary"
+    // ". trailer"
+    // "cast cast";
+      "showHeader"
+      "poster"
+      "seasons"
+      "summary"
+      "trailer"
+      "showInfo"
+      "cast";
+    justify-items: center;
+
+    grid-gap: 1rem;
+    .showHeader {
+      flex-direction: column;
+      .rating {
+        text-align: center;
+        margin: 0.5rem 0;
+      }
+    }
+    .showInfo {
+      // justify-self: left;
+      width: 100%;
+    }
+    .trailer {
+      width: 100%;
+    }
+    .summary {
+      width: 100%;
+    }
+    .seasonList {
+      justify-content: center;
+    }
+  }
+}

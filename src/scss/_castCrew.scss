@@ -1,0 +1,91 @@
+.castCrew {
+  // display: flex;
+  // flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas:
+    "showInfo crew"
+    "cast cast";
+  grid-gap: 1rem;
+  grid-column-gap: 2.5rem;
+}
+.showInfo {
+  grid-area: showInfo;
+  img {
+    margin-top: 1rem;
+  }
+}
+.crew {
+  width: 80.4%;
+  margin-top: 3rem;
+
+  grid-area: crew;
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+}
+// .castPerson {
+//   img {
+//     height: 100px;
+//   }
+// }
+.cast {
+  width: 70%;
+  margin: auto;
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+  grid-area: cast;
+  .castPerson img {
+    max-width: 100px;
+    height: 100px;
+    margin-right: 1rem;
+  }
+  .castPerson {
+    width: 100%;
+  }
+  .castCharacter {
+    width: 50%;
+  }
+  .castLi {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    a {
+      width: 50%;
+    }
+  }
+}
+
+.crewMember {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0.25rem 0;
+
+  p,
+  a {
+    width: 50%;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 900px) {
+  .castCrew {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    grid-template-areas:
+      "showInfo"
+      "crew"
+      "cast";
+  }
+  .castCrewTitle {
+    text-align: center;
+  }
+  .crew,
+  .cast {
+    width: 90%;
+    margin: auto;
+  }
+}

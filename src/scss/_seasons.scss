@@ -1,0 +1,34 @@
+.seasons {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 2rem;
+}
+
+.seasonsPoster {
+  margin: 0.5rem auto;
+}
+.seasonSelect {
+  display: block;
+  background-color: $highlight;
+  color: white;
+  width: 210px;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .seasons {
+    flex-direction: column;
+    align-items: center;
+
+    .seasonsPoster {
+      display: block;
+    }
+  }
+  .seasonSelect {
+    margin: auto;
+  }
+}

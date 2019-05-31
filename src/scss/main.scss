@@ -1,0 +1,71 @@
+@import "config";
+@import "utility";
+@import "schedule";
+@import "show";
+@import "showPreview";
+@import "header";
+@import "castPreview";
+@import "seasons";
+@import "episodes";
+@import "castCrew";
+@import "person";
+// @import "searchbar";
+@import "searchResult";
+@import "search.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 1rem;
+}
+body {
+  // font-size: 16px;
+  line-height: 1.5;
+  background-color: $primaryColor;
+  color: whitesmoke;
+}
+
+.highlight {
+  color: #c5c6c7;
+}
+a {
+  text-decoration: none;
+  color: #192d51;
+  font-weight: bold;
+  cursor: pointer;
+}
+ul {
+  list-style-type: none;
+}
+button {
+  cursor: pointer;
+}
+.rating {
+  text-align: right;
+  font-size: 1.3rem;
+  i {
+    color: gold;
+  }
+}
+@media (max-width: 1300px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (max-width: 900px) {
+  body {
+    font-size: 14px;
+  }
+  .container {
+    width: 100%;
+    margin-top: 20%;
+  }
+}
+@media (max-width: 766px) {
+  .container {
+    padding: 1rem;
+  }
+}

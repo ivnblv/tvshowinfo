@@ -1,0 +1,64 @@
+.lightBg {
+  @include bgColor($lightColor);
+}
+.darkBg {
+  @include bgColor($primaryColor);
+}
+.secondaryBg {
+  @include bgColor($secondaryColor);
+}
+.highlight {
+  @include bgColor($highlight);
+}
+.container {
+  width: 60%;
+  margin: auto;
+  padding: 1rem 2rem;
+  margin: 5% auto;
+}
+.btn {
+  margin: auto;
+  padding: 0.5rem 1rem;
+  display: block;
+  border: none;
+  outline: none;
+  @include bgColor($highlight);
+  &:hover {
+    background-color: rgba(61, 70, 82, 0.85);
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 45%;
+  left: 47%;
+
+  div {
+    svg {
+      margin: auto;
+      display: block;
+    }
+  }
+}
+.innerLoader {
+  width: 100%;
+  height: 100%;
+  div {
+    position: relative;
+    top: 45%;
+    left: 45%;
+  }
+}
+.loader {
+  color: $highlight;
+  height: "100";
+  width: "100";
+}
+
+.nthLi {
+  li {
+    &:nth-child(odd) {
+      @include bgColor($lightColor);
+    }
+  }
+}
