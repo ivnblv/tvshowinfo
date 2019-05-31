@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tvshowinfo/static/css/main.a973d3d4.chunk.css",
-    "main.js": "/tvshowinfo/static/js/main.94cfef84.chunk.js",
-    "main.js.map": "/tvshowinfo/static/js/main.94cfef84.chunk.js.map",
+    "main.js": "/tvshowinfo/static/js/main.ca932a2e.chunk.js",
+    "main.js.map": "/tvshowinfo/static/js/main.ca932a2e.chunk.js.map",
     "runtime~main.js": "/tvshowinfo/static/js/runtime~main.fbbd1e26.js",
     "runtime~main.js.map": "/tvshowinfo/static/js/runtime~main.fbbd1e26.js.map",
     "static/css/2.5d832d7a.chunk.css": "/tvshowinfo/static/css/2.5d832d7a.chunk.css",
     "static/js/2.9b40753c.chunk.js": "/tvshowinfo/static/js/2.9b40753c.chunk.js",
     "static/js/2.9b40753c.chunk.js.map": "/tvshowinfo/static/js/2.9b40753c.chunk.js.map",
     "index.html": "/tvshowinfo/index.html",
-    "precache-manifest.13db12233c75ab24215b3d37343b8c5d.js": "/tvshowinfo/precache-manifest.13db12233c75ab24215b3d37343b8c5d.js",
+    "precache-manifest.dfaeb9a38881574b320323bfa30f4704.js": "/tvshowinfo/precache-manifest.dfaeb9a38881574b320323bfa30f4704.js",
     "service-worker.js": "/tvshowinfo/service-worker.js",
     "static/css/2.5d832d7a.chunk.css.map": "/tvshowinfo/static/css/2.5d832d7a.chunk.css.map",
     "static/css/main.a973d3d4.chunk.css.map": "/tvshowinfo/static/css/main.a973d3d4.chunk.css.map"
