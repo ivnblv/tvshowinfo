@@ -23,6 +23,11 @@
   .seasons {
     flex-direction: column;
     align-items: center;
+    .seasonsShowInfo {
+      h2 {
+        text-align: center;
+      }
+    }
 
     .seasonsPoster {
       display: block;

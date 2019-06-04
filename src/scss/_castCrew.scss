@@ -1,6 +1,4 @@
 .castCrew {
-  // display: flex;
-  // flex-direction: row;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-areas:
@@ -24,11 +22,7 @@
     margin-bottom: 0.5rem;
   }
 }
-// .castPerson {
-//   img {
-//     height: 100px;
-//   }
-// }
+
 .cast {
   width: 70%;
   margin: auto;

@@ -1,35 +1,8 @@
-// $primaryColor: #0b0c10;
-// $secondaryColor: #2e2e2e;
-
-// $primaryColor: #2A2A2E;
-// $secondaryColor: #38383D;
-// $lightColor: #fff;
-
-// $primaryColor: #F3F5F9;
-
-// $primaryColor: #ededed;
 $primaryColor: #fafafb;
-// $secondaryColor: rgba(123, 126, 142, 0.3);
 $secondaryColor: #e0e1e2;
 $darkColor: #222933;
-// $primaryColor: #ededed;
-// $secondaryColor: rgba(123, 126, 142, 0.2);
-
-// $lightColor: rgba(123, 126, 142, 0.09);
 $lightColor: #ededed;
-// $highlight: #1f2738;
 $highlight: #3d4652;
-
-//lastversion
-// $primaryColor: #f3f5f9;
-// $secondaryColor: #dce4ef;
-// $lightColor: #e8eef7;
-// $highlight: #302a58;
-
-// $primaryColor: #F3F4F7;
-// $secondaryColor: rgba(183,192,212,.6);
-// $lightColor: #EBEBF3;
-// $highlight: #4E5E7C;
 
 @function textColor($color) {
   @if (lightness($color) > 50) {

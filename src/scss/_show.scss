@@ -10,6 +10,7 @@
 
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
+  grid-template-columns: 1fr 4fr;
 }
 .showInfo {
   grid-area: showInfo;
@@ -66,17 +67,11 @@
       margin-left: 0.5rem;
     }
   }
-
-  // .seasons{
-  //     display: grid;
-  //     grid-template-columns: repeat(5,1fr);
-  //     grid-gap: .5rem;
-  // }
 }
 .summary {
   grid-area: summary;
   width: 80%;
-  // margin: 1rem 0;
+
   p {
     margin-top: 0.5rem;
   }
@@ -87,12 +82,7 @@
 
 @media (max-width: 900px) {
   .show {
-    grid-template-areas: 
-    // "showHeader showHeader"
-    // "poster showInfo"
-    // ". summary"
-    // ". trailer"
-    // "cast cast";
+    grid-template-areas:
       "showHeader"
       "poster"
       "seasons"
@@ -100,6 +90,7 @@
       "trailer"
       "showInfo"
       "cast";
+    grid-template-columns: 1fr;
     justify-items: center;
 
     grid-gap: 1rem;
@@ -110,13 +101,8 @@
         margin: 0.5rem 0;
       }
     }
-    .showInfo {
-      // justify-self: left;
-      width: 100%;
-    }
-    .trailer {
-      width: 100%;
-    }
+    .showInfo,
+    .trailer,
     .summary {
       width: 100%;
     }

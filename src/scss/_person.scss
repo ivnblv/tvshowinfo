@@ -2,9 +2,19 @@
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
+  .personInfo {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    img {
+      width: 90%;
+      margin-bottom: 1rem;
+    }
+  }
 
   .personCredits {
-    margin-left: 5rem;
+    width: 80%;
+    padding: 0 1rem;
 
     .crewCredit {
       padding: 0.5rem 0;
@@ -22,22 +32,29 @@
 }
 
 @media (max-width: 900px) {
-  h1 {
-    text-align: center;
-  }
   .person {
     flex-direction: column;
+
     h1 {
       text-align: center;
     }
     .personInfo {
-      align-self: center;
+      width: 80%;
+      margin: auto;
+      padding: 0 1rem;
+      img {
+        margin: auto;
+        margin-bottom: 1rem;
+        width: auto;
+      }
+    }
+    .personCredits {
+      margin: auto;
+      margin-top: 1rem;
+      width: 80%;
     }
   }
   .personName {
     text-align: center;
-  }
-  .personCredits {
-    margin-top: 1rem;
   }
 }

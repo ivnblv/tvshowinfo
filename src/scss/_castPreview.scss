@@ -7,6 +7,9 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+  a {
+    width: 40%;
+  }
 }
 .castPerson {
   display: flex;
@@ -14,14 +17,16 @@
   align-items: center;
 }
 .castCharacter {
-  width: 30%;
+  width: 55%;
+  p {
+    width: 100%;
+  }
 }
 .castUl {
   padding: 1rem 0;
 }
 .castImage {
-  // width: 100%;
-  max-width: 70px;
+  max-width: 40px;
   margin-right: 1rem;
 }
 @media (max-width: 900px) {
