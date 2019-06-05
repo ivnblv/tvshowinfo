@@ -27,7 +27,6 @@
   }
 }
 .searchbars {
-  height: 100%;
   width: 35%;
   flex-basis: 35%;
 }
@@ -45,13 +44,23 @@
     input,
     select,
     button {
+      font-size: 1rem;
+      border-width: 0;
       padding: 0.5rem;
+      height: 2.2rem;
     }
     input {
       width: 65%;
+
+      border-right: 1px solid $highlight;
+      &:active {
+        outline: none;
+      }
     }
     select {
       width: 25%;
+
+      border-right: 1px solid $highlight;
     }
     button {
       width: 10%;
@@ -80,7 +89,7 @@ select {
     position: absolute;
     left: 0;
     top: 45px;
-    border: 1px solid $highlight;
+    border-bottom: 1px solid $highlight;
 
     input {
       width: 55%;
@@ -96,6 +105,9 @@ select {
       border: none;
       border-right: 1px solid $highlight;
       height: 100%;
+      background: url("../img/caret-down-solid-dark.svg") no-repeat 95% center;
+      background-size: 10px;
+      background-color: $primaryColor;
     }
     button {
       padding: 0.7rem 0.25rem;

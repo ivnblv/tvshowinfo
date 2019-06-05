@@ -9,23 +9,34 @@
 @import "episodes";
 @import "castCrew";
 @import "person";
-// @import "searchbar";
 @import "searchResult";
-@import "search.scss";
+@import "searchbar.scss";
+@import "footer.scss";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
+
 body {
-  // font-size: 16px;
   line-height: 1.5;
+
   background-color: $primaryColor;
-  color: whitesmoke;
+  color: $primaryColor;
+  font-family: "Open Sans", "Oxygen", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 
 .highlight {
@@ -37,16 +48,32 @@ a {
   font-weight: bold;
   cursor: pointer;
 }
+
 ul {
   list-style-type: none;
 }
 button {
   cursor: pointer;
+  transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
 }
 .rating {
   text-align: right;
   font-size: 1.3rem;
+
   i {
     color: gold;
   }
+}
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+}
+option {
+  width: 100%;
 }
