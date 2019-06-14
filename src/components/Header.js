@@ -7,14 +7,9 @@ class Header extends Component {
     return (
       <header className="highlight">
         <div className="headerContainer">
-          {/* <div className="headerBtns"> */}
-          <Link to="/tvshowinfo/" className="indexBtn">
-            <i style={{ color: "white" }} class="fas fa-tv fa-lg" />
+          <Link to="/" className="indexBtn">
+            <i style={{ color: "white" }} className="fas fa-tv fa-lg" />
           </Link>
-          {/* <button className="mobileBtn" onClick={this.toggleMobile}>
-              <i style={{ color: "4E5E7C" }} class="fas fa-search fa-lg" />
-            </button>
-          </div> */}
           <Searchbar />
         </div>
       </header>

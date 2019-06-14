@@ -95,10 +95,10 @@
 
 .show {
   display: grid;
-  grid-template-areas: "showHeader showHeader" "poster showInfo" ". seasons" ". summary" "trailer trailer" "cast cast";
+  grid-template-areas: "showHeader showHeader" "poster showInfo" ". seasons" ". summary" ". trailer" ". cast";
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
-  grid-template-columns: 1fr 4fr; }
+  grid-template-columns: 1fr 5fr; }
 
 .showInfo {
   grid-area: showInfo; }
@@ -113,11 +113,13 @@
 
 .poster {
   grid-area: poster; }
+  .poster img {
+    width: 100%;
+    height: auto; }
 
 .trailer {
   grid-area: trailer;
-  width: 60%;
-  margin: auto; }
+  width: 80%; }
   .trailer .videoWrapper {
     padding-top: 56.25%;
     position: relative;
@@ -136,7 +138,8 @@
       border: none; }
 
 .seasonList {
-  grid-area: seasons; }
+  grid-area: seasons;
+  width: 80%; }
   .seasonList ul {
     display: flex;
     flex-direction: row;
@@ -145,7 +148,7 @@
     flex-wrap: wrap; }
     .seasonList ul li {
       display: inline;
-      margin-left: 0.5rem; }
+      margin-right: 0.5rem; }
 
 .summary {
   grid-area: summary;
@@ -158,7 +161,7 @@
 
 @media (max-width: 900px) {
   .show {
-    grid-template-areas: "showHeader" "poster" "seasons" "summary" "trailer" "showInfo" "cast";
+    grid-template-areas: "showHeader" "poster" "summary" "seasons" "trailer" "showInfo" "cast";
     grid-template-columns: 1fr;
     justify-items: center;
     grid-gap: 1rem; }
@@ -171,8 +174,10 @@
     .show .trailer,
     .show .summary {
       width: 100%; }
-    .show .seasonList {
-      justify-content: center; } }
+    .show .seasonList ul {
+      justify-content: center; }
+    .show .seasonList h4 {
+      text-align: center; } }
 
 .showPreview {
   margin: 1rem 0 2rem 0;
@@ -274,7 +279,9 @@ header {
     display: block; } }
 
 .castPreview {
-  padding: 0; }
+  padding: 0;
+  width: 80%;
+  margin: initial; }
 
 .castMember {
   display: flex;
@@ -304,7 +311,8 @@ header {
 
 @media (max-width: 900px) {
   .castPreview {
-    padding: 0; } }
+    padding: 0;
+    width: 100%; } }
 
 .seasons {
   display: flex;
@@ -489,11 +497,11 @@ header {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
   margin: auto;
   margin-bottom: 1rem; }
   .searchResultItem i {
-    padding: .5rem 0; }
+    padding: 0.5rem 0; }
   .searchResultItem p {
     word-break: break-all; }
   .searchResultItem img {
@@ -507,12 +515,14 @@ header {
 @media (max-width: 900px) {
   .searchContainer {
     width: 90%; }
+    .searchContainer a {
+      width: 100%; }
   .searchResultItem img {
     height: 40px; }
   .searchResultItem i {
     padding: 0; }
   .searchResultItem p {
-    margin-left: .5rem; }
+    margin-left: 0.5rem; }
   .searchQuery {
     margin-left: 5%; } }
 
@@ -588,27 +598,28 @@ select {
   align-items: flex-end; }
   .searchbarMobile #searchbarMobileInput {
     width: 100%;
+    z-index: 10;
     position: absolute;
     left: 0;
-    top: 45px;
+    top: 3.4rem;
     border-bottom: 1px solid #3d4652; }
+    .searchbarMobile #searchbarMobileInput input,
+    .searchbarMobile #searchbarMobileInput select,
+    .searchbarMobile #searchbarMobileInput button {
+      padding: 0.5rem 0.25rem;
+      height: 2.5rem; }
     .searchbarMobile #searchbarMobileInput input {
       width: 55%;
-      padding: 0.7rem 0.25rem;
       border: none;
-      border-right: 1px solid #3d4652;
-      height: 100%; }
+      border-right: 1px solid #3d4652; }
     .searchbarMobile #searchbarMobileInput select {
       width: 25%;
-      padding: 0.65rem 0.25rem;
       border: none;
       border-right: 1px solid #3d4652;
-      height: 100%;
       background: url("../img/caret-down-solid-dark.svg") no-repeat 95% center;
       background-size: 10px;
       background-color: #fafafb; }
     .searchbarMobile #searchbarMobileInput button {
-      padding: 0.7rem 0.25rem;
       width: 20%;
       border: none; }
 
@@ -690,6 +701,8 @@ button {
   -ms-transition: background-color 0.2s;
   -o-transition: background-color 0.2s;
   -webkit-transition: background-color 0.2s; }
+  button::-moz-focus-inner {
+    border: none; }
 
 .rating {
   text-align: right;

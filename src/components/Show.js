@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-// import {getShow} from '../actions/showActions';
+
 import CastPreview from "./CastPreview";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
@@ -9,12 +9,20 @@ import { getShow } from "../routines";
 import noImage from "../img/noImage.png";
 class Show extends Component {
   componentDidMount() {
-    // this.props.getShow(this.props.match.params.id);
     this.props.getShow(
       `https://api.tvmaze.com/shows/${
         this.props.match.params.id
       }?embed[]=seasons&embed[]=cast`
     );
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.getShow(
+        `https://api.tvmaze.com/shows/${
+          this.props.match.params.id
+        }?embed[]=seasons&embed[]=cast`
+      );
+    }
   }
 
   render() {
@@ -44,16 +52,19 @@ class Show extends Component {
               <div className="showHeader">
                 <h2 className="showTitle">{name}</h2>
                 <p className="rating">
-                  <i style={{ color: "#4E5E7C" }} class="fas fa-star fa-lg" />{" "}
+                  <i
+                    style={{ color: "#4E5E7C" }}
+                    className="fas fa-star fa-lg"
+                  />
                   {rating.average}
                 </p>
               </div>
 
               <div className="poster">
                 {image !== null ? (
-                  <img src={image.medium} className="posterImg" />
+                  <img src={image.medium} className="posterImg" alt="" />
                 ) : (
-                  <img src={noImage} className="posterImg" />
+                  <img src={noImage} className="posterImg" alt="" />
                 )}
               </div>
 
@@ -62,14 +73,8 @@ class Show extends Component {
                 <ul>
                   <li>Type: {type}</li>
                   <li>Status: {status}</li>
-                  <li>Genres: {genres.join(", ")}</li>
-                  <li>
-                    Episodes:{" "}
-                    {_embedded.seasons.reduce(
-                      (total, x) => (total += x.episodeOrder),
-                      0
-                    )}
-                  </li>
+                  <li>Genres: {genres.join(", ") || "n/a"}</li>
+                  <li>Episodes: {this.countEpisodes(_embedded.seasons)}</li>
                   <li>Language: {language}</li>
                   <li>Runtime: {runtime}min</li>
                   <li>
@@ -91,9 +96,7 @@ class Show extends Component {
                 <ul>
                   {_embedded.seasons.map(season => (
                     <li key={season.id}>
-                      <Link
-                        to={`/tvshowinfo/show/${id}/seasons/${season.number}`}
-                      >
+                      <Link to={`/show/${id}/seasons/${season.number}`}>
                         {season.number}
                       </Link>
                     </li>
@@ -103,7 +106,9 @@ class Show extends Component {
               <div className="trailer">
                 <div className="videoWrapper">
                   <iframe
-                    src={`https://www.youtube.com/embed?listType=search&list=${name}trailer`}
+                    title={`${name} trailer`}
+                    // src={`https://www.youtube.com/embed?listType=search&list=${name}trailer`}
+                    src={`https://www.youtube.com/embed?listType=search&list=${name}tvshowtrailer`}
                   />
                 </div>
               </div>
@@ -119,16 +124,24 @@ class Show extends Component {
             </div>
           </div>
         ) : (
-          <div class="loader">
+          <div className="loader">
             <Loader type="Oval" color="#4E5E7C" height="50" width="50" />
           </div>
         )}
       </React.Fragment>
     );
   }
+  countEpisodes = arr => {
+    const amount = arr.reduce((total, x) => (total += x.episodeOrder), 0);
+    if (amount > 0) {
+      return amount;
+    } else return "n/a";
+  };
 }
 Show.propTypes = {
-  // show: PropTypes.object.isRequired
+  show: PropTypes.object.isRequired,
+  fetchingShow: PropTypes.bool.isRequired,
+  getShow: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   show: state.show.data,

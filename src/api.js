@@ -1,7 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-
-export const fetchData = async(url) =>{
+export const fetchData = async url => {
+  try {
     const res = await axios.get(url);
-    return res;   
-}
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

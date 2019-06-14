@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import {getCast} from '../actions/showActions';
 import { Link } from "react-router-dom";
 import { getCastCrew } from "../routines";
 import Loader from "react-loader-spinner";
 import noImage from "../img/noImage.png";
+import PropTypes from "prop-types";
+import { uniqBy } from "lodash";
 
 class CastAndCrew extends Component {
   componentDidMount() {
@@ -24,33 +25,41 @@ class CastAndCrew extends Component {
           <div className="container castCrew secondaryBg">
             <div className="showInfo">
               <h2 className="castCrewTitle">
-                <Link to={`/tvshowinfo/show/${id}`}>{name}</Link>
+                <Link to={`/show/${id}`}>{name}</Link>
               </h2>
               {image !== null ? (
-                <img src={image.medium} className="castCrewPoster posterImg" />
+                <img
+                  src={image.medium}
+                  alt=""
+                  className="castCrewPoster posterImg"
+                />
               ) : (
-                <img src={noImage} className="castCrewPoster posterImg" />
+                <img
+                  src={noImage}
+                  alt=""
+                  className="castCrewPoster posterImg"
+                />
               )}
             </div>
             <div className="crew">
               <h3>Crew: </h3>
-              {this.test(_embedded.crew)}
+              {this.renderCrew(_embedded.crew)}
             </div>
 
             <div className="cast">
               <h3>Cast:</h3>
               <ul className="nthLi">
-                {_embedded.cast.map(castMember => {
+                {_embedded.cast.map((castMember, i) => {
                   const { person, character } = castMember;
 
                   return (
-                    <li className="castLi">
-                      <Link to={`/tvshowinfo/name/${person.id}/`}>
+                    <li className="castLi" key={`castLi${person.id}${i}`}>
+                      <Link to={`/name/${person.id}/`}>
                         <div className="castPerson">
                           {person.image !== null ? (
-                            <img src={person.image.medium} />
+                            <img src={person.image.medium} alt="" />
                           ) : (
-                            <img src={noImage} />
+                            <img src={noImage} alt="" />
                           )}
                           <p>{person.name}</p>
                         </div>
@@ -72,46 +81,42 @@ class CastAndCrew extends Component {
       </React.Fragment>
     );
   }
-  crewCredit = arr => {
-    const credit = arr.map(crewCredit => crewCredit.types);
-    const unique = Array.from(new Set(credit));
 
-    return (
-      <ul className="nthLi">
-        {unique.map(x => (
-          <li>
-            <h3>{x}</h3>
-            {arr
-              .filter(i => i.type == x)
-              .map(crewMember => (
-                // <Link to = {`/show/${show._embedded.show.id}`}><p>{show._embedded.show.name}</p></Link>
-                <p>{crewMember.person.name}</p>
-              ))}
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  // groups crew members by their credit
+  // crewCredit = arr => {
+  //   const credit = arr.map(crewCredit => crewCredit.type);
+  //   const unique = Array.from(new Set(credit));
 
-  test = arr => {
+  //   return (
+  //     <ul className="nthLi">
+  //       {unique.map(x => (
+  //         <li key={`nthLi${x}`}>
+  //           <h3>{x}</h3>
+  //           {arr
+  //             .filter(i => i.type == x)
+  //             .map(crewMember => (
+  //               <p key={`crewMember${crewMember.person.name}`}>
+  //                 {crewMember.person.name}
+  //               </p>
+  //             ))}
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // };
+
+  renderCrew = arr => {
     const crew = arr.map(crewCredit => [
       crewCredit.person.name,
       crewCredit.person.id
     ]);
-    const unique = [];
-    let temp;
-    for (let i = 0; i < crew.length; i++) {
-      if (crew[i][0] !== temp) {
-        unique.push(crew[i]);
-      }
-      temp = crew[i][0];
-    }
+    const unique = uniqBy(crew, x => x[1]);
     return (
       <ul className="nthLi">
         {unique.map(crewMember => (
-          <li className="crewMember">
+          <li className="crewMember" key={crewMember[1]}>
             <p>
-              <Link className="crewName" to={`/name/${crewMember[1]}`}>
+              <Link to={`/name/${crewMember[1]}`} className="crewName">
                 {crewMember[0]}
               </Link>
             </p>
@@ -129,7 +134,11 @@ class CastAndCrew extends Component {
     );
   };
 }
-
+CastAndCrew.propTypes = {
+  cast: PropTypes.object.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  getCastCrew: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
   cast: state.show.cast,
   fetching: state.show.fetchingCast

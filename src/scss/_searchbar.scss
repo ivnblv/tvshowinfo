@@ -85,32 +85,31 @@ select {
   align-items: flex-end;
   #searchbarMobileInput {
     width: 100%;
-
+    z-index: 10;
     position: absolute;
     left: 0;
-    top: 45px;
+    top: 3.4rem;
     border-bottom: 1px solid $highlight;
-
+    input,
+    select,
+    button {
+      padding: 0.5rem 0.25rem;
+      height: 2.5rem;
+    }
     input {
       width: 55%;
-      padding: 0.7rem 0.25rem;
       border: none;
       border-right: 1px solid $highlight;
-      height: 100%;
     }
     select {
       width: 25%;
-
-      padding: 0.65rem 0.25rem;
       border: none;
       border-right: 1px solid $highlight;
-      height: 100%;
       background: url("../img/caret-down-solid-dark.svg") no-repeat 95% center;
       background-size: 10px;
       background-color: $primaryColor;
     }
     button {
-      padding: 0.7rem 0.25rem;
       width: 20%;
       border: none;
     }

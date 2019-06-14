@@ -11,10 +11,9 @@ class Schedule extends Component {
     display: 10
   };
   componentDidMount() {
-    // this.props.getSchedule();
     this.props.getSchedule("https://api.tvmaze.com/schedule");
   }
-  presentGenres = [];
+
   render() {
     const { schedule } = this.props;
     return (
@@ -22,7 +21,7 @@ class Schedule extends Component {
         {!this.props.loading && Object.keys(this.props.schedule).length > 0 ? (
           <div className="container secondaryBg">
             <div className="schedule">
-              <h2 style={{ color: "black" }}>Airing Today:</h2>
+              <h2>Airing Today:</h2>
               {schedule
                 .sort(function(a, b) {
                   if (a.show.rating.average > b.show.rating.average) {
@@ -55,41 +54,16 @@ class Schedule extends Component {
       </React.Fragment>
     );
   }
-  test = () => {
-    console.log(this.presentGenres);
-  };
-  getUniqueGenres = () => {
-    console.log("genres");
-    const genres = [];
-    this.props.schedule.map(item => {
-      genres.push(...item.show.genres);
-    });
-    const unique = [...new Set(genres)];
-    return unique;
-  };
+
   showMore = () => {
     this.setState({ display: this.state.display + 10 });
-  };
-
-  filterGenres = e => {
-    const arr = this.presentGenres;
-    const value = e.target.value;
-    arr.includes(value) ? arr.splice(arr.indexOf(value), 1) : arr.push(value);
-
-    console.log(this.presentGenres);
-  };
-  filterArr = arr => {
-    // const filtered = arr.filter(x=>!this.presentGenres.includes(x.show.genres));
-    const filtered = arr.filter(
-      x => !this.presentGenres.includes(x.show.genres)
-    );
-    console.log(filtered);
-    return filtered;
   };
 }
 
 Schedule.propTypes = {
-  schedule: PropTypes.array.isRequired
+  schedule: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  getSchedule: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   schedule: state.schedule.data,

@@ -1,15 +1,6 @@
-import {
-  liveSearchNames,
-  liveSearchShows,
-  liveSearch,
-  clearSearch
-} from "../routines";
+import { liveSearch, clearSearch } from "../routines";
 
 const initialState = {
-  shows: [],
-  names: [],
-  fetchingShows: false,
-  fetchingNames: false,
   searchbarFetching: false,
   result: []
 };
@@ -35,37 +26,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         searchbarFetching: false
-      };
-    case liveSearchShows.TRIGGER:
-      return {
-        ...state,
-        fetchingShows: true
-      };
-    case liveSearchShows.SUCCESS:
-      return {
-        ...state,
-        shows: action.payload
-      };
-    case liveSearchShows.FULFILL:
-      return {
-        ...state,
-        fetchingShows: false
-      };
-
-    case liveSearchNames.TRIGGER:
-      return {
-        ...state,
-        fetchingNames: true
-      };
-    case liveSearchNames.SUCCESS:
-      return {
-        ...state,
-        names: action.payload
-      };
-    case liveSearchNames.FULFILL:
-      return {
-        ...state,
-        fetchingShows: false
       };
 
     default:

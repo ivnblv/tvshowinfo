@@ -8,7 +8,7 @@ import searchbarReducer from "./searchbarReducer";
 export default combineReducers({
   schedule: scheduleReducer,
   show: showReducer,
-  people: namesReducer,
+  names: namesReducer,
   search: searchReducer,
   searchbar: searchbarReducer
 });

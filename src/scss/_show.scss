@@ -5,12 +5,12 @@
     "poster showInfo"
     ". seasons"
     ". summary"
-    "trailer trailer"
-    "cast cast";
+    ". trailer"
+    ". cast";
 
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 5fr;
 }
 .showInfo {
   grid-area: showInfo;
@@ -28,11 +28,15 @@
 }
 .poster {
   grid-area: poster;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 .trailer {
   grid-area: trailer;
-  width: 60%;
-  margin: auto;
+  width: 80%;
+
   .videoWrapper {
     padding-top: 56.25%;
     position: relative;
@@ -55,6 +59,7 @@
 }
 .seasonList {
   grid-area: seasons;
+  width: 80%;
 
   ul {
     display: flex;
@@ -64,7 +69,7 @@
     flex-wrap: wrap;
     li {
       display: inline;
-      margin-left: 0.5rem;
+      margin-right: 0.5rem;
     }
   }
 }
@@ -85,8 +90,8 @@
     grid-template-areas:
       "showHeader"
       "poster"
-      "seasons"
       "summary"
+      "seasons"
       "trailer"
       "showInfo"
       "cast";
@@ -107,7 +112,12 @@
       width: 100%;
     }
     .seasonList {
-      justify-content: center;
+      ul {
+        justify-content: center;
+      }
+      h4 {
+        text-align: center;
+      }
     }
   }
 }

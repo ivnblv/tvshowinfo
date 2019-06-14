@@ -5,42 +5,43 @@ import store from "./store";
 import "./css/main.css";
 import Schedule from "./components/Schedule";
 import Show from "./components/Show";
-import Episodes from "./components/Episodes";
 import Seasons from "./components/Seasons";
 import Header from "./components/Header";
 import CastAndCrew from "./components/CastAndCrew";
 import Person from "./components/Person";
 import SearchResult from "./components/SearchResult";
+import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <div className="App">
             <Header />
-            {/* <Schedule /> */}
-            {/* <Show /> */}
             <Switch>
-              <Route exact path="/tvshowinfo" component={Schedule} />
-              <Route exact path="/tvshowinfo/show/:id" component={Show} />
+              <Route exact path={"/"} component={Schedule} />
+              <Route exact path={"/show/:id"} component={Show} />
               <Route
                 exact
-                path="/tvshowinfo/show/:id/seasons/:seasonNumber"
+                path={"/show/:id/seasons/:seasonNumber"}
                 component={Seasons}
               />
               <Route
                 exact
-                path="/tvshowinfo/show/:id/cast&crew"
+                path={"/show/:id/cast&crew"}
                 component={CastAndCrew}
               />
-              <Route exact path="/tvshowinfo/name/:id" component={Person} />
+              <Route exact path={"/name/:id"} component={Person} />
               <Route
                 exact
-                path="/tvshowinfo/search/:type&:query"
+                path={"/search/:type&:query"}
                 component={SearchResult}
               />
+              <Route component={NotFound} />
             </Switch>
+            <Footer />
           </div>
         </Router>
       </Provider>

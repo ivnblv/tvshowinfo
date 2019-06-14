@@ -5,6 +5,7 @@ import noImage from "../img/noImage.png";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { searchShows, searchNames } from "../routines";
+import PropTypes from "prop-types";
 
 class SearchResult extends Component {
   componentDidMount() {
@@ -38,41 +39,47 @@ class SearchResult extends Component {
               {type === "shows" || type === "all" ? (
                 <div className="searchContainer">
                   <h4>Shows:</h4>
-                  {this.props.shows.map(show => (
-                    <Link to={`/tvshowinfo/show/${show.show.id}`}>
-                      <div className="searchResultItem darkBg">
-                        {show.show.image !== null ? (
-                          <img src={show.show.image.medium} />
-                        ) : (
-                          <img src={noImage} />
-                        )}
-                        <p>
-                          {`${show.show.name}`}
-                          {show.show.premiered !== null
-                            ? `(${show.show.premiered.slice(0, 4)})`
-                            : null}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                  {this.props.shows.map(show => {
+                    const { id, name, image, premiered } = show.show;
+                    return (
+                      <Link to={`/show/${id}`} key={id}>
+                        <div className="searchResultItem darkBg">
+                          {image !== null ? (
+                            <img src={image.medium} alt="" />
+                          ) : (
+                            <img src={noImage} alt="" />
+                          )}
+                          <p>
+                            {`${name}`}
+                            {premiered !== null
+                              ? `(${premiered.slice(0, 4)})`
+                              : null}
+                          </p>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               ) : null}
 
               {type === "all" || type === "names" ? (
                 <div className="searchContainer">
                   <h4>Names:</h4>
-                  {this.props.names.map(name => (
-                    <Link to={`/tvshowinfo/name/${name.person.id}`}>
-                      <div className="searchResultItem darkBg">
-                        {name.person.image == null ? (
-                          <img src={noImage} />
-                        ) : (
-                          <img src={name.person.image.medium} />
-                        )}
-                        <p>{name.person.name}</p>
-                      </div>
-                    </Link>
-                  ))}
+                  {this.props.names.map(x => {
+                    const { id, image, name } = x.person;
+                    return (
+                      <Link to={`/name/${id}`} key={id}>
+                        <div className="searchResultItem darkBg">
+                          {image == null ? (
+                            <img src={noImage} alt="" />
+                          ) : (
+                            <img src={image.medium} alt="" />
+                          )}
+                          <p>{name}</p>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               ) : null}
             </div>
@@ -81,18 +88,6 @@ class SearchResult extends Component {
       </React.Fragment>
     );
   }
-  searchResultItem = arr => {
-    arr.map(show => {
-      const { name, premiered, image } = show.show;
-      return (
-        <li>
-          <div className="searchResultItem darkBg">
-            {/* <img src = {image.medium}/> */}
-          </div>
-        </li>
-      );
-    });
-  };
   fetchData = () => {
     const { type, query } = this.props.match.params;
     if (type === "all") {
@@ -105,6 +100,14 @@ class SearchResult extends Component {
     } else return null;
   };
 }
+SearchResult.propTypes = {
+  shows: PropTypes.array.isRequired,
+  names: PropTypes.array.isRequired,
+  fetchingShows: PropTypes.bool.isRequired,
+  fetchingNames: PropTypes.bool.isRequired,
+  searchShows: PropTypes.func.isRequired,
+  searchNames: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   shows: state.search.shows,

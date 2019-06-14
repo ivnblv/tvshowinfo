@@ -17,35 +17,42 @@ class Seasons extends Component {
   }
   render() {
     const { name, image, id, _embedded } = this.props.seasons;
-    // const {seasons} = this.props.seasons._embedded;
+
     return (
       <React.Fragment>
         {!this.props.fetchingSeasons &&
-        Object.keys(this.props.seasons).length > 0 ? (
+        Object.keys(this.props.seasons).length > 0 &&
+        id === Number(this.props.match.params.id) ? (
           <div className="container seasons secondaryBg">
             <div className="seasonsShowInfo">
-              <Link to={`/tvshowinfo/show/${id}`}>
+              <Link to={`/show/${id}`}>
                 <h2>{name}</h2>
               </Link>
 
               {image !== null ? (
-                <img className="seasonsPoster" src={image.medium} />
+                <img
+                  className="seasonsPoster posterImg"
+                  src={image.medium}
+                  alt=""
+                />
               ) : (
-                <img src={noImage} />
+                <img src={noImage} alt="" />
               )}
-
-              <select
-                className="seasonSelect"
-                value={Number(this.props.match.params.seasonNumber)}
-                onChange={this.seasonSelect}
-              >
-                {_embedded.seasons.map(season => (
-                  <option
-                    value={Number(season.number)}
-                    data-seasonId={season.id}
-                  >{`Season ${season.number}`}</option>
-                ))}
-              </select>
+              <div className="selectContainer">
+                <select
+                  className="seasonSelect selectDark"
+                  value={Number(this.props.match.params.seasonNumber)}
+                  onChange={this.seasonSelect}
+                >
+                  {_embedded.seasons.map(season => (
+                    <option
+                      key={season.number}
+                      value={Number(season.number)}
+                      data-seasonid={season.id}
+                    >{`Season ${season.number}`}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <Episodes
@@ -53,7 +60,7 @@ class Seasons extends Component {
               showId={this.props.match.params.id}
               seasonid={
                 _embedded.seasons.find(
-                  x => x.number == this.props.match.params.seasonNumber
+                  x => x.number === Number(this.props.match.params.seasonNumber)
                 ).id
               }
             />
@@ -70,9 +77,12 @@ class Seasons extends Component {
     this.props.history.push(`${e.target.value}`);
   };
 }
-
+Seasons.propTypes = {
+  seasons: PropTypes.object.isRequired,
+  fetchingSeasons: PropTypes.bool.isRequired,
+  getSeasons: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-  // show: state.show.data
   seasons: state.show.seasons,
   fetchingSeasons: state.show.fetchingSeasons
 });

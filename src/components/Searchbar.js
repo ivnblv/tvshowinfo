@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import {searchShow} from '../actions/searchActions';
-import {
-  liveSearchNames,
-  liveSearchShows,
-  liveSearch,
-  clearSearch
-} from "../routines";
+import { liveSearch, clearSearch } from "../routines";
 import Loader from "react-loader-spinner";
-import placeholderPhoto from "../img/placeholderPhoto.png";
 import noImage from "../img/noImage.png";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Searchbar extends Component {
   state = {
@@ -23,17 +17,12 @@ class Searchbar extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    // console.log(this.props.history.location.pathname);
-    // console.log(nextProps);
-
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.resultDisplay("hidden");
     }
-
+    // fetching data after user input + set interval
     if (this.state.lastEntry === 2 && this.state.query.length > 0) {
-      console.log("fetch here");
       const { type, query } = this.state;
-
       if (type === "shows") {
         this.props.clearSearch([]);
         this.props.liveSearch(`https://api.tvmaze.com/search/shows?q=${query}`);
@@ -49,7 +38,7 @@ class Searchbar extends Component {
           `https://api.tvmaze.com/search/people?q=${query}`
         );
       }
-
+      // resetting last input counter and stopping timer
       this.setState({
         lastEntry: 0
       });
@@ -63,10 +52,8 @@ class Searchbar extends Component {
   }
 
   render() {
-    const { type } = this.state;
     return (
       <React.Fragment>
-        {/* onBlur={() => this.resultDisplay("none")} */}
         <div className="searchbars">
           <div className="searchbar">
             <form className="searchbarInput">
@@ -78,23 +65,33 @@ class Searchbar extends Component {
                 type="text"
                 placeholder="Search..."
               />
-              <select onChange={this.selectType}>
+              <select className="selectLight" onChange={this.selectType}>
                 <option value="all">All</option>
                 <option value="shows">Shows</option>
                 <option value="names">Names</option>
               </select>
-              <button onClick={this.searchRedirect}>
-                <i style={{ color: "4E5E7C" }} class="fas fa-search fa-lg" />
+              <button
+                onClick={this.searchRedirect}
+                className="lightBg lightHover"
+              >
+                <i
+                  style={{ color: "4E5E7C" }}
+                  className="fas fa-search fa-lg"
+                />
               </button>
             </form>
           </div>
 
           <div className="searchbarMobile">
             <button className="btnToggle" onClick={this.toggleMobile}>
-              <i style={{ color: "4E5E7C" }} class="fas fa-search fa-2x" />
+              <i style={{ color: "4E5E7C" }} className="fas fa-search fa-2x" />
             </button>
 
-            <form className="searchbarInput" id="searchbarMobileInput">
+            <form
+              className="searchbarInput"
+              id="searchbarMobileInput"
+              style={{ display: "none" }}
+            >
               <input
                 onFocus={() => this.resultDisplay("visible")}
                 onBlur={() => this.resultDisplay("hidden")}
@@ -103,35 +100,20 @@ class Searchbar extends Component {
                 type="text"
                 placeholder="Search..."
               />
-              <select onChange={this.selectType}>
+              <select onChange={this.selectType} className="selectLight">
                 <option value="all">All</option>
                 <option value="shows">Shows</option>
                 <option value="names">Names</option>
               </select>
-              <button onClick={this.searchRedirect}>Search</button>
+              <button onClick={this.searchRedirect} className="lightHover">
+                Search
+              </button>
             </form>
           </div>
-          <div
-            id="results"
-            className="searchResults primaryBg"
-            // onMouseOut={() => this.lockResults(false)}
-            // onMouseEnter={() => this.lockResults(true)}
-          >
-            {this.props.names.length > 0 || this.props.shows.length > 0 ? (
+          <div id="results" className="searchResults darkBg">
+            {this.props.searchResult.length > 0 ? (
               <React.Fragment>
-                {/* {type === "shows"
-                  ? this.resultRender(this.props.shows)
-                  : type === "names"
-                  ? this.resultRender(this.props.names)
-                  : this.resultRender([
-                      ...this.props.shows.slice(
-                        0,
-                        this.state.displayAmount / 2
-                      ),
-                      ...this.props.names.slice(0, this.state.displayAmount / 2)
-                    ])} */}
-                {this.resultRender(this.props.shows)}
-
+                {this.resultRender(this.props.searchResult)}
                 <button
                   className="btn"
                   onClick={this.searchRedirect}
@@ -140,17 +122,9 @@ class Searchbar extends Component {
                 >
                   All search results
                 </button>
-
-                {/* <a
-                  onMouseEnter={() => this.lockResults(true)}
-                  onMouseOut={() => this.lockResults(false)}
-                  href="#"
-                >
-                  Test
-                </a> */}
               </React.Fragment>
             ) : this.props.fetching ? (
-              <div className="innerLoader">
+              <div className="innerLoader ">
                 <Loader type="Oval" color="#4E5E7C" height="25" width="25" />
               </div>
             ) : null}
@@ -162,45 +136,44 @@ class Searchbar extends Component {
   searchRedirect = e => {
     e.preventDefault();
     const { type, query } = this.state;
-
-    this.props.history.replace(`/tvshowinfo/search/${type}&${query}`);
+    this.props.history.replace(`/search/${type}&${query}`);
   };
   resultRender = arr => {
     return (
       <ul>
         {arr
           .sort((a, b) => b.score - a.score)
-          // .filter((x, i) => i < this.state.displayAmount)
           .slice(0, this.state.displayAmount)
           .map(item => {
+            // checks if data relates to a person or a show
             const type = Object.keys(item)[1];
-
             return (
-              <li>
+              <li key={item[type].id}>
                 <Link
                   onMouseDown={() => this.lockResults(true)}
                   onMouseUp={() => this.lockResults(false)}
-                  to={`/tvshowinfo/${type === "person" ? "name" : "show"}/${
+                  to={`/${type === "person" ? "name" : "show"}/${
                     item[type].id
                   }`}
-                  // onMouseEnter={() => this.lockResults(true)}
-                  // onMouseOut={() => this.lockResults(false)}
                 >
                   <div className="liveSearchItem darkBg">
                     {item[type].image !== null ? (
                       <img
                         className="liveSearchImg"
                         src={item[type].image.medium}
+                        alt=""
                       />
                     ) : (
-                      <img className="liveSearchImg" src={noImage} />
+                      <img className="liveSearchImg" src={noImage} alt="" />
                     )}
                     <p>
                       {item[type].name}
-                      {item[type].premiered !== undefined &&
-                      item[type].premiered !== null
-                        ? `(${item[type].premiered.slice(0, 4)})`
-                        : null}
+                      <span style={{ marginLeft: ".15rem" }}>
+                        {item[type].premiered !== undefined &&
+                        item[type].premiered !== null
+                          ? `(${item[type].premiered.slice(0, 4)})`
+                          : null}
+                      </span>
                     </p>
                   </div>
                 </Link>
@@ -216,26 +189,16 @@ class Searchbar extends Component {
       ? (element.style.display = "block")
       : (element.style.display = "none");
   };
-  lockResults = b => {
-    console.log(b);
+  lockResults = bool => {
     this.setState({
-      lockResults: b
+      lockResults: bool
     });
   };
 
-  // resultDisplay = display => {
-  //   const { liveSearchNames, liveSearchShows } = this.props;
-  //   if (!this.state.lockResults) {
-  //     document.getElementById("results").style.display = display;
-  //   }
-  //   console.log("123");
-  // };
   resultDisplay = visibility => {
-    const { liveSearchNames, liveSearchShows } = this.props;
     if (!this.state.lockResults) {
       document.getElementById("results").style.visibility = visibility;
     }
-    console.log("123");
   };
 
   handleInput = e => {
@@ -244,19 +207,19 @@ class Searchbar extends Component {
       lastEntry: 0
     });
     clearInterval(this.interval);
+    // starts timer after user input
     this.interval = setInterval(this.count, 1000);
   };
   count = () => {
-    console.log("count");
-    if (this.state.lastEntry < 3) {
+    if (this.state.lastEntry <= 2) {
       this.setState({
         lastEntry: this.state.lastEntry + 1
       });
     } else {
+      clearInterval(this.interval);
       this.setState({
         lastEntry: 0
       });
-      clearInterval(this.test);
     }
   };
 
@@ -266,16 +229,17 @@ class Searchbar extends Component {
     });
   };
 }
-
+Searchbar.propTypes = {
+  searchResult: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  liveSearch: PropTypes.func.isRequired,
+  clearSearch: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-  // shows: state.searchbar.shows,
-  names: state.searchbar.names,
-  fetchingShows: state.searchbar.fetchingShows,
-  fetchingNames: state.searchbar.fetchingNames,
-  shows: state.searchbar.result,
+  searchResult: state.searchbar.result,
   fetching: state.searchbar.searchbarFetching
 });
 export default connect(
   mapStateToProps,
-  { liveSearchShows, liveSearchNames, liveSearch, clearSearch }
+  { liveSearch, clearSearch }
 )(withRouter(Searchbar));

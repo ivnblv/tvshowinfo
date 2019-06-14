@@ -17,8 +17,8 @@ class ShowPreview extends Component {
     return (
       <div className="showPreview lightBg">
         <div className="showPreviewMainInfo">
-          <Link to={`/tvshowinfo/show/${id}`}>
-            <h1 className="showPreviewTitle">{name}</h1>
+          <Link to={`/show/${id}`}>
+            <h2 className="showPreviewTitle">{name}</h2>
           </Link>
           <p className="rating">
             <i className="fas fa-star fa-lg" style={{ color: "#4E5E7C" }} />{" "}
@@ -31,18 +31,18 @@ class ShowPreview extends Component {
               <img
                 className="showPreviewPoster posterImg"
                 src={image.medium}
-                alt="poster"
+                alt=""
               />
             ) : (
-              <img src={noImage} />
+              <img src={noImage} alt="" />
             )}
           </div>
           <div className="previewInfo">
             <div className="showInfo">
               <h4>{type}</h4>
               <ul className="genres">
-                {genres.map((genre, i) => (
-                  <li key={i}>{genre}</li>
+                {genres.map(genre => (
+                  <li key={genre}>{genre}</li>
                 ))}
               </ul>
               <h5>Summary:</h5>

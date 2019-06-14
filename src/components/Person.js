@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { getPerson, getCastCredits, getCrewCredits } from "../routines";
+import noImage from "../img/noImage.png";
+import PropTypes from "prop-types";
 
 class Person extends Component {
   componentDidMount() {
@@ -20,9 +22,33 @@ class Person extends Component {
       }/crewcredits?embed=show`
     );
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      this.props.getPerson(
+        `https://api.tvmaze.com/people/${this.props.match.params.id}`
+      );
+      this.props.getCastCredits(
+        `https://api.tvmaze.com/people/${
+          this.props.match.params.id
+        }/castcredits?embed=show`
+      );
+      this.props.getCrewCredits(
+        `https://api.tvmaze.com/people/${
+          this.props.match.params.id
+        }/crewcredits?embed=show`
+      );
+    }
+  }
 
   render() {
-    const { name, image, birthday, deathday, country } = this.props.person;
+    const {
+      name,
+      image,
+      birthday,
+      deathday,
+      country,
+      gender
+    } = this.props.person;
 
     return (
       <React.Fragment>
@@ -35,8 +61,10 @@ class Person extends Component {
             <div className="person">
               <div className="personInfo">
                 {image !== null && image !== undefined ? (
-                  <img src={image.medium} className="posterImg" />
-                ) : null}
+                  <img src={image.medium} alt="" className="posterImg" />
+                ) : (
+                  <img src={noImage} alt="" className="posterImg" />
+                )}
                 <p>Born: {birthday}</p>
                 {deathday ? <p>Died: {deathday}</p> : null}
                 {country !== null ? <p>Country: {country.name}</p> : null}
@@ -44,7 +72,7 @@ class Person extends Component {
               <div className="personCredits">
                 {this.props.castCredits.length < 1 ? null : (
                   <div className="castCredits">
-                    <h4>Actor:</h4>
+                    <h3>{gender === "Male" ? "Actor:" : "Actress:"}</h3>
                     <ul>
                       {this.props.castCredits.map(castCredit => {
                         const {
@@ -53,7 +81,7 @@ class Person extends Component {
                           premiered
                         } = castCredit._embedded.show;
                         return (
-                          <li className="personRole">
+                          <li className="personRole" key={id}>
                             <p>
                               <Link to={`/show/${id}`}>
                                 {`${name}`}
@@ -90,17 +118,17 @@ class Person extends Component {
     const unique = Array.from(new Set(credit));
 
     return unique.map(x => (
-      <div className="crewCredit">
-        <h4>{x}:</h4>
+      <div className="crewCredit" key={x}>
+        <h3>{x}:</h3>
         <ul>
           {arr
-            .filter(i => i.type == x)
+            .filter(i => i.type === x)
             .map(show => {
               const { id, name, premiered } = show._embedded.show;
               return (
-                <li className="personRole">
+                <li className="personRole" key={id}>
                   <p>
-                    <Link to={`/tvshowinfo/show/${id}`}>
+                    <Link to={`/show/${id}`}>
                       {`${name}`}
                       {premiered !== null ? `(${premiered.slice(0, 4)})` : null}
                     </Link>
@@ -113,13 +141,24 @@ class Person extends Component {
     ));
   };
 }
+Person.propTypes = {
+  person: PropTypes.object.isRequired,
+  castCredits: PropTypes.array.isRequired,
+  crewCredits: PropTypes.array.isRequired,
+  fetchingCast: PropTypes.bool.isRequired,
+  fetchingCrew: PropTypes.bool.isRequired,
+  fetchingPerson: PropTypes.bool.isRequired,
+  getPerson: PropTypes.func.isRequired,
+  getCastCredits: PropTypes.func.isRequired,
+  getCrewCredits: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-  person: state.people.person,
-  castCredits: state.people.castCredits,
-  crewCredits: state.people.crewCredits,
-  fetchingCast: state.people.fetchingCast,
-  fetchingCrew: state.people.fetchingCrew,
-  fetchingPerson: state.people.fetchingPerson
+  person: state.names.person,
+  castCredits: state.names.castCredits,
+  crewCredits: state.names.crewCredits,
+  fetchingCast: state.names.fetchingCast,
+  fetchingCrew: state.names.fetchingCrew,
+  fetchingPerson: state.names.fetchingPerson
 });
 
 export default connect(

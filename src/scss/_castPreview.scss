@@ -1,5 +1,7 @@
 .castPreview {
   padding: 0;
+  width: 80%;
+  margin: initial;
 }
 .castMember {
   display: flex;
@@ -32,5 +34,6 @@
 @media (max-width: 900px) {
   .castPreview {
     padding: 0;
+    width: 100%;
   }
 }

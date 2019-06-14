@@ -6,24 +6,23 @@ import Loader from "react-loader-spinner";
 
 class Episodes extends Component {
   componentDidMount() {
-    // this.props.getEpisodes(`http://api.tvmaze.com/shows/${this.props.showId}/episodes`);
     this.props.getEpisodes(
       `https://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
     );
-    console.log("EPISODES MOUNT");
   }
   componentDidUpdate(prevProps) {
     if (this.props.seasonid !== prevProps.seasonid) {
       this.props.getEpisodes(
         `https://api.tvmaze.com/seasons/${this.props.seasonid}/episodes`
       );
-      console.log("new props");
     }
   }
   render() {
     return (
       <div className="episodes">
-        {!this.props.fetchingEpisodes && this.props.episodes.length > 0 ? (
+        {!this.props.fetchingEpisodes &&
+        this.props.episodes.length > 0 &&
+        this.props.episodes[0].season === this.props.seasonNumber ? (
           <React.Fragment>
             <ul>
               {this.props.episodes.map(episode => {
@@ -33,12 +32,15 @@ class Episodes extends Component {
                   season,
                   summary,
                   airdate,
-                  image
+                  image,
+                  id
                 } = episode;
                 return (
-                  <div className="episode lightBg">
+                  <div className="episode lightBg" key={id}>
                     <h4>{name}</h4>
-                    {image !== null ? <img src={image.medium} /> : null}
+                    {image !== null ? (
+                      <img src={image.medium} alt="" className="episodeImg" />
+                    ) : null}
                     <p>
                       Season {season} Episode {number}
                     </p>
@@ -60,6 +62,11 @@ class Episodes extends Component {
     );
   }
 }
+Episodes.propTypes = {
+  episodes: PropTypes.array.isRequired,
+  fetchingEpisodes: PropTypes.bool.isRequired,
+  getEpisodes: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
   episodes: state.show.episodes,
   fetchingEpisodes: state.show.fetchingEpisodes
