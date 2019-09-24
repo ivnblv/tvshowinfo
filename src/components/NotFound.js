@@ -1,18 +1,27 @@
 import React from "react";
+import notFoundImg from "../img/notFoundImg.png";
 
 function NotFound() {
+  const style = {
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  };
   return (
-    // <React.Fragment>
-    <div className="container" style={{ width: "auto" }}>
+    <div className="container" style={style}>
+      <img src={notFoundImg} alt="" />
       <h1
         style={{
-          color: "black"
+          color: "black",
+          fontFamily: "sans-serif",
+          marginTop: "1.5rem"
         }}
       >
-        404 Page Not Found
+        Sorry, something went wrong
       </h1>
     </div>
-    // </React.Fragment>
   );
 }
 
