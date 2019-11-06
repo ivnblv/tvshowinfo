@@ -1,1 +1,2 @@
-## [Demo](https://ivnblv.github.io/tvshowinfo/)
+Demo - https://ivnblv.github.io/tvshowinfo/
+![Screenshot](screenshot.jpg)
