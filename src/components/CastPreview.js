@@ -24,7 +24,11 @@ class CastPreview extends Component {
                         alt=""
                       />
                     ) : (
-                      <img src={noImage} alt="" className="imgSmall" />
+                      <img
+                        src={noImage}
+                        alt=""
+                        className="castImage imgSmall"
+                      />
                     )}
                     <p className="castName">{person.name}</p>
                   </div>

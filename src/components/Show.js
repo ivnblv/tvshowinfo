@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
 import CastPreview from "./CastPreview";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";

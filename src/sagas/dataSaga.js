@@ -51,7 +51,7 @@ function* getData(type, action) {
   } catch (error) {
     console.log(error);
     yield put(type.failure());
-    window.location = "/404";
+    window.location = `/tvshowinfo/error`;
   }
   yield put(type.fulfill());
 }
